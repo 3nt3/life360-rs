@@ -27,7 +27,9 @@ async fn main() -> Result<()> {
     let config: models::Config = toml::from_str(&config_file)?;
 
     let api_client = api::login(&config.life360.username, &config.life360.password).await?;
-    dbg!(api_client.get_circles().await?);
+
+    let circles = api_client.get_circles().await?;
+    let circle = api_client.get_circle(&circles[0].id).await?;
 
     Ok(())
 }

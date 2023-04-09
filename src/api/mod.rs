@@ -4,7 +4,9 @@ use anyhow::Result;
 use std::collections::HashMap;
 
 use self::models::Life360API;
+use serde;
 
+/// Login to Life360 and return an API Client
 pub async fn login<S>(email: S, password: S) -> Result<Life360API>
 where
     S: Into<String>,
@@ -33,11 +35,26 @@ where
 }
 
 impl Life360API {
+    /// Get a list of all circles
     pub async fn get_circles(&self) -> Result<Vec<models::Circle>> {
-        let url = "https://api-cloudfront.life360.com/v3/circles";
+        let res = self.get::<models::CircleResponse>("circles").await;
+        Ok(res?.circles)
+    }
+
+    /// Get a specific circle
+    pub async fn get_circle(&self, circle_id: &str) -> Result<models::Circle> {
+        let res = self.get::<models::Circle>(&format!("circles/{}", circle_id)).await;
+        dbg!(res);
+        todo!()
+    }
+
+    /// Make a GET request to the Life360 API
+    async fn get<'a, R>(&self, path: &'a str) -> Result<R> where R: serde::de::DeserializeOwned {
+        let url = format!("https://api-cloudfront.life360.com/v3/{}", path);
         let client = reqwest::Client::new();
         let res = client.get(url).header("Authorization", format!("Bearer {}", self.access_token)).send().await?;
 
-        Ok(res.json::<models::CircleResponse>().await?.circles)
+        Ok(res.json::<R>().await?)
     }
+
 }
