@@ -43,9 +43,7 @@ impl Life360API {
 
     /// Get a specific circle
     pub async fn get_circle(&self, circle_id: &str) -> Result<models::Circle> {
-        let res = self.get::<models::Circle>(&format!("circles/{}", circle_id)).await;
-        dbg!(res);
-        todo!()
+        Ok(self.get::<models::Circle>(&format!("circles/{}", circle_id)).await?)
     }
 
     /// Make a GET request to the Life360 API
