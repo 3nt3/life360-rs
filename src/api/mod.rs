@@ -3,7 +3,9 @@ pub mod models;
 use anyhow::Result;
 use std::collections::HashMap;
 
-pub async fn login<S>(email: S, password: S) -> Result<String>
+use self::models::Life360API;
+
+pub async fn login<S>(email: S, password: S) -> Result<Life360API>
 where
     S: Into<String>,
 {
@@ -27,5 +29,15 @@ where
         .send()
         .await?;
 
-    Ok(res.json::<models::LoginResponse>().await?.access_token)
+    Ok(Life360API{access_token:  res.json::<models::LoginResponse>().await?.access_token })
+}
+
+impl Life360API {
+    pub async fn get_circles(&self) -> Result<Vec<models::Circle>> {
+        let url = "https://api-cloudfront.life360.com/v3/circles";
+        let client = reqwest::Client::new();
+        let res = client.get(url).header("Authorization", format!("Bearer {}", self.access_token)).send().await?;
+
+        Ok(res.json::<models::CircleResponse>().await?.circles)
+    }
 }

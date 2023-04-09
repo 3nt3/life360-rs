@@ -26,8 +26,8 @@ async fn main() -> Result<()> {
     let config_file = std::fs::read_to_string("config.toml")?;
     let config: models::Config = toml::from_str(&config_file)?;
 
-    let access_token = api::login(&config.life360.username, &config.life360.password).await?;
-    dbg!(access_token);
+    let api_client = api::login(&config.life360.username, &config.life360.password).await?;
+    dbg!(api_client.get_circles().await?);
 
     Ok(())
 }
