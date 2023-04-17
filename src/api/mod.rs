@@ -45,7 +45,6 @@ impl Life360API {
     pub async fn get_circle(&self, circle_id: &str) -> Result<models::Circle> {
         Ok(self.get::<models::Circle>(&format!("circles/{}", circle_id)).await?)
     }
-
     /// Make a GET request to the Life360 API
     async fn get<'a, R>(&self, path: &'a str) -> Result<R> where R: serde::de::DeserializeOwned {
         let url = format!("https://api-cloudfront.life360.com/v3/{}", path);
