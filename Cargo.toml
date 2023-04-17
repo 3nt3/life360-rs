@@ -1,7 +1,14 @@
 [package]
-name = "life360"
+name = "life2pi"
 version = "0.1.0"
 edition = "2021"
+authors = ["3nt3 <nia@3nt3.de>"]
+readme = "README.md"
+repository = "https://github.com/3nt3/life360-rs"
+homepage = "https://github.com/3nt3/life360-rs"
+license = "AGPL-3.0"
+categories = ["api-bindings"]
+description = "A Rust library for the undocumented Life360 API"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
