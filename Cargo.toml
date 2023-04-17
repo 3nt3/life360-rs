@@ -1,6 +1,6 @@
 [package]
 name = "life2pi"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 authors = ["3nt3 <nia@3nt3.de>"]
 readme = "README.md"
