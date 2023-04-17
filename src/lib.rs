@@ -1,19 +1,7 @@
+//! This crate provides unofficial bindings for the undocumented Life360 API.
+//!
+//! Still very unfinished, only rudimentary functionality.
+//!
+//! To get started, see [`api`]
+
 pub mod api;
-pub mod models;
-
-// pub fn add(left: usize, right: usize) -> usize {
-//     left + right
-// }
-//
-// #[cfg(test)]
-// mod tests {
-//     use super::*;
-//
-//     #[test]
-//     fn it_works() {
-//         let result = add(2, 2);
-//         assert_eq!(result, 4);
-//     }
-// }
-//
-
