@@ -1,4 +1,4 @@
-# life360-rs
+# life2pi
 
 An attempt at interfacing with the Life 360 API in Rust. Not nearly feature complete, most basic functionality only.
 
